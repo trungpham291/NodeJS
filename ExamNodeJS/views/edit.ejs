@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tree</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Tree Shop</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Edit Tree</h2>
+        <form action="/edit/<%= tree._id %>" method="POST">
+            <div class="input-group">
+                <label>Tree Name</label>
+                <input type="text" name="treename" value="<%= tree.treename %>" required>
+            </div>
+
+            <div class="input-group">
+                <label>Description</label>
+                <textarea name="description" required><%= tree.description %></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="add">Save</button>
+                <a href="/" class="reset">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>Số 8, Tôn Thất Thuyết, Cầu Giấy, Hà Nội</p>
+    </footer>
+</body>
+</html>

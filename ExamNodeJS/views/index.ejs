@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Tree Shop</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About me</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h2 class="title">Tree Shop</h2>
+        <div class="tree-form">
+            <div class="left-column">
+                <img id="preview" src="/default-image.png" alt="Tree Image Preview">
+            </div>
+            <div class="right-column">
+                <form action="/add" method="POST" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <label>Tree Name</label>
+                        <input type="text" name="treename" required>
+                    </div>
+                
+                    <div class="input-group">
+                        <label>Description</label>
+                        <textarea name="description" required></textarea>
+                    </div>
+                
+                    <div class="input-group image-input">
+                        <label>Image</label>
+                        <input type="file" id="image-file" name="image" accept="image/*" required>
+                        <button type="button" class="browser" onclick="document.getElementById('image-file').click()">Browser</button>
+                    </div>
+                
+                    <div class="btn-group">
+                        <button type="submit" class="add">Add</button>
+                        <button type="reset" class="reset">Reset</button>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% trees.forEach((tree, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= tree.treename %></td>
+                    <td><img src="<%= tree.image %>" alt="Tree Image"></td>
+                    <td><%= tree.description %></td>
+                    <td>
+                        <a href="/edit/<%= tree._id %>" class="edit"><i class="fas fa-edit"></i></a>
+                    
+                        <form action="/delete/<%= tree._id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
+    <footer>
+        <p>Số 8, Tôn Thất Thuyết, Cầu Giấy, Hà Nội</p>
+    </footer>
+
+    <script>
+        document.getElementById('image-file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
